@@ -9,24 +9,24 @@ pipeline {
                 checkout scm
 
                 echo 'checkout the repo '
-                echo DOCKERHUB_CREDENTIALS
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t oussamamaaroufi/nodeapp:$BUILD_NUMBER .'
+                sh 'sudo docker build -t oussamamaaroufi/nodeapp:$BUILD_NUMBER .'
                 echo 'Build Image Completed'
             }
         }
         stage('Login to Docker Hub') {
             steps {
-                sh 'docker login -u oussamamaaroufi1 -p fEBjP6xYTGxrYC3'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                // sh 'docker login -u oussamamaaroufi1 -p fEBjP6xYTGxrYC3'
                 echo 'Login Completed'
             }
         }
         stage('Push Image to Docker Hub') {
             steps {
-                sh 'docker push oussamamaaroufi/nodeapp:$BUILD_NUMBER'
+                sh 'sudo docker push oussamamaaroufi/nodeapp:$BUILD_NUMBER'
                 echo 'Push Image Completed'
             }
         }
