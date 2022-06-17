@@ -10,7 +10,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        // app = docker.build("oussama/nodeapp")
+        app = docker.build("nodeapp")
         echo "building the application ....."
     }
 
