@@ -1,45 +1,39 @@
-node {
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-
-        checkout scm
+pipeline {
+    agent {
+        node { label 'slavefordocker' }
     }
-
-    stage('Build image') {
-        /* This builds the actual image */
-
-        // app = docker.build("nodeapp")
-        app = sh "docker build . -t nodeapp"
-        echo "building the application ....."
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub1')
     }
+    stages {
+        stage('Git Checkout') {
+            checkout scm
 
-    stage('Test image') {
-        
-        // app.inside {
-        //     echo "Tests passed"
-        // }
-        echo "Testing Stage"
-    }
-
-    stage('Push image') {
-        /* 
-            You would need to first register with DockerHub before you can push images to your account
-        */
-        // docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-        //     // app.push("${env.BUILD_NUMBER}")
-        //     app.push("latest")
-        //     } 
-        script {
-            // withCredentials([string(credentialsId: 'docker-hub1', variable: 'docker-hub1')]) {
-            //         sh 'docker login -u devopshint -p ${docker-hub1}'
-            //      }  
-            //      sh 'docker push devopshint/my-app-1.0'
-
-            sh 'docker login -u oussamamaaroufi1 -p fEBjP6xYTGxrYC3'
-            sh 'docker push nodeapp '
+            echo ''
         }
-
-                echo "Trying to Push Docker Build to DockerHub"
+        stage('Build Docker Image') {
+            steps {
+                sh 'sudo docker build -t oussamamaaroufi/nodeapp:$BUILD_NUMBER .'
+                echo 'Build Image Completed'
+            }
+        }
+        stage('Login to Docker Hub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                echo 'Login Completed'
+            }
+        }
+        stage('Push Image to Docker Hub') {
+            steps {
+                sh 'sudo docker push dockerhubusername/dockerhubreponame:$BUILD_NUMBER'
+                echo 'Push Image Completed'
+            }
+        }
+  } //stages
+    post {
+        always {
+            // sh 'docker logout'
+            echo 'docker hub loug out ...'
+        }
     }
 }
