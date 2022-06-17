@@ -33,8 +33,8 @@ pipeline {
     }
     post {
         always {
-            // sh 'docker logout'
-            echo 'docker hub loug out ...'
+            sh 'docker logout'
+            echo 'docker Hub loug out ...'
         }
     }
 }
