@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t oussamamaaroufi/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t oussamamaaroufi1/nodeapp:$BUILD_NUMBER .'
                 echo 'Build Image Completed'
             }
         }
@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Push Image to Docker Hub') {
             steps {
-                sh 'docker push oussamamaaroufi/nodeapp:$BUILD_NUMBER'
+                sh 'docker push oussamamaaroufi1/nodeapp:$BUILD_NUMBER'
                 echo 'Push Image Completed'
             }
         }
