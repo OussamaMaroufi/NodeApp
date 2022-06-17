@@ -11,7 +11,7 @@ node {
         /* This builds the actual image */
 
         // app = docker.build("nodeapp")
-         sh "docker build image -t nodeapp"
+         sh "docker build . -t nodeapp"
         echo "building the application ....."
     }
 
