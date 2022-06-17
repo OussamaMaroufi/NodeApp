@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Push Image to Docker Hub') {
             steps {
-                sh 'docker push dockerhubusername/dockerhubreponame:$BUILD_NUMBER'
+                sh 'docker push oussamamaaroufi/nodeapp:$BUILD_NUMBER'
                 echo 'Push Image Completed'
             }
         }
