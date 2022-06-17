@@ -1,5 +1,4 @@
 node {
-    def app
 
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
@@ -25,12 +24,22 @@ node {
 
     stage('Push image') {
         /* 
-			You would need to first register with DockerHub before you can push images to your account
-		*/
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub1') {
-            // app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-            } 
+            You would need to first register with DockerHub before you can push images to your account
+        */
+        // docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+        //     // app.push("${env.BUILD_NUMBER}")
+        //     app.push("latest")
+        //     } 
+        script {
+            // withCredentials([string(credentialsId: 'docker-hub1', variable: 'docker-hub1')]) {
+            //         sh 'docker login -u devopshint -p ${docker-hub1}'
+            //      }  
+            //      sh 'docker push devopshint/my-app-1.0'
+
+            sh 'docker login -u oussamamaaroufi1 -p fEBjP6xYTGxrYC3'
+            sh 'docker push nodeapp '
+        }
+
                 echo "Trying to Push Docker Build to DockerHub"
     }
 }
