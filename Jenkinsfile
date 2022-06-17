@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        node { label 'slavefordocker' }
-    }
+    agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub1')
     }
@@ -31,7 +29,7 @@ pipeline {
                 echo 'Push Image Completed'
             }
         }
-  } //stages
+    }
     post {
         always {
             // sh 'docker logout'
