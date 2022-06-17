@@ -19,7 +19,8 @@ pipeline {
         }
         stage('Login to Docker Hub') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker login -u oussamamaaroufi1 -p fEBjP6xYTGxrYC3'
                 echo 'Login Completed'
             }
         }
