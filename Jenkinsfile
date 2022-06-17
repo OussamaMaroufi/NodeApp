@@ -7,9 +7,11 @@ pipeline {
     }
     stages {
         stage('Git Checkout') {
-            checkout scm
+            steps {
+                checkout scm
 
-            echo ''
+                echo 'checkout the repo '
+            }
         }
         stage('Build Docker Image') {
             steps {
